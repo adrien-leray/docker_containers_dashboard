@@ -9,6 +9,9 @@ app.use(bodyParser.json());
 let routes = require("./api/routes/dcdRoutes");
 routes(app);
 
+app.set("view engine", "pug");
+app.set("views", "./views");
+
 app.listen(port);
 
 console.log("Docker Containers Dashboard REST API server started on: " + port);

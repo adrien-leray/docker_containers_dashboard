@@ -1,0 +1,25 @@
+html
+    head
+        title DCD - Docker Containers Dashboard
+        link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css")
+    body
+        nav(class="navbar is-dark")
+            div(class="navbar-brand")
+                a(class="navbar-item" href="/")
+                    img(src="https://dev.pierre-galvez.fr/wp-content/uploads/2015/01/docker-1170x780.png", alt="docker logo")
+            div(class="navbar-menu")
+        table(class="table is-bordered is-fullwidth")
+            thead
+                tr
+                    th Containers
+            tbody
+                each c, i in containers
+                    tr
+                        td  
+                            if c.State === "exited"
+                                span(class="has-text-danger") #{c.State} 
+                            else if c.State === "running"
+                                span(class="has-text-success") #{c.State} 
+                            i #{c.Image} 
+                            b #{c.Id} 
+                            span #{c.Names[0]}
