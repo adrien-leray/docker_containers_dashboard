@@ -1,0 +1,24 @@
+{
+  "name": "containers-dashboard",
+  "version": "1.0.0",
+  "description": "a dashboard for docker containers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Welcome to docker containers dashboard\"",
+    "start": "nodemon server.js"
+  },
+  "keywords": [
+    "REST",
+    "API",
+    "DOCKER"
+  ],
+  "author": "Leray Adrien",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  },
+  "dependencies": {
+    "dockerode": "^2.5.7",
+    "express": "^4.16.3"
+  }
+}
