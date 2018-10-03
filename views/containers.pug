@@ -2,24 +2,38 @@ html
     head
         title DCD - Docker Containers Dashboard
         link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css")
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous")
     body
         nav(class="navbar is-dark")
             div(class="navbar-brand")
                 a(class="navbar-item" href="/")
                     img(src="https://dev.pierre-galvez.fr/wp-content/uploads/2015/01/docker-1170x780.png", alt="docker logo")
             div(class="navbar-menu")
-        table(class="table is-bordered is-fullwidth")
+                div(class="navbar-start")
+                    a(class="navbar-item" href="/containers") containers
+                    a(class="navbar-item" href="/images") images
+        div(style="padding: 10px 0 10px 10px")
+            a(class="button is-primary" href="/containers/new") 
+                i(class="fas fa-plus" style="padding-right: 10px")
+                span container
+
+        table(class="table is-striped is-fullwidth")
             thead
                 tr
-                    th Containers
+                    th containers
             tbody
                 each c, i in containers
                     tr
                         td  
-                            if c.State === "exited"
-                                span(class="has-text-danger") #{c.State} 
-                            else if c.State === "running"
-                                span(class="has-text-success") #{c.State} 
-                            i #{c.Image} 
-                            b #{c.Id} 
-                            span #{c.Names[0]}
+                            if c.State === "running"
+                                a(href="/containers/"+c.Id)
+                                    i(class="fas fa-circle fa-lg has-text-success" style="margin-right: 10px")
+                                    small
+                                        b #{c.Id} 
+                                    span #{c.Image}
+                            else
+                                i(class="fas fa-power-off fa-lg has-text-danger" style="margin-right: 10px") 
+                                small
+                                    b #{c.Id} 
+                                span #{c.Image}
+
