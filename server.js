@@ -1,10 +1,11 @@
 var express = require("express"),
   app = express(),
-  port = process.env.PORT || 3333,
   bodyParser = require("body-parser");
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
+
+const dcd = require("./api/controllers/dcdController");
 
 let routes = require("./api/routes/dcdRoutes");
 routes(app);
@@ -12,6 +13,10 @@ routes(app);
 app.set("view engine", "pug");
 app.set("views", "./views");
 
-app.listen(port);
+http.listen(3000, () =>
+  console.log("✨  Server started at http://localhost:3000")
+);
 
-console.log("Docker Containers Dashboard REST API server started on: " + port);
+io.on("connection", socket => {
+  console.log("Hello bro !");
+});

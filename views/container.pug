@@ -1,58 +1,61 @@
-html
-    head
-        title DCD - Docker Containers Dashboard
-        link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css")
-        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous")
-    body
-        nav(class="navbar is-dark")
-            div(class="navbar-brand")
-                a(class="navbar-item" href="/")
-                    img(src="https://dev.pierre-galvez.fr/wp-content/uploads/2015/01/docker-1170x780.png", alt="docker logo")
-            div(class="navbar-menu")
-                div(class="navbar-start")
-                    a(class="navbar-item" href="/containers") containers
-                    a(class="navbar-item" href="/images") images
-        div(style="padding: 10px")
-            div(class="card")
-                div(class="card-content")
-                    div(class="media")
-                        div(class="media-left")
+extends header.pug
+
+block content
+    div(style="padding: 10px")
+        div(class="card")
+            div(class="card-content")
+                div(class="media")
+                    div(class="media-left")
+                        if (container.State.Status === "running")
                             i(class="fas fa-power-off fa-4x has-text-success")
-                        div(class="media-content")
-                            p(class="title is-4") #{container.Name} 
-                                small(class="is-size-6")
+                        else
+                            i(class="fas fa-power-off fa-4x has-text-danger")
+                    div(class="media-content")
+                        p(class="title is-4") #{container.Name} 
+                            small(class="is-size-6")
+                                if (container.State.Status === "running")
                                     i(class="has-text-success") #{container.State.Status}
-                            p(class="subtitle is-6") #{container.Path}
-                    div(class="content")
-                        p 
-                         i created on 
-                         b #{createdOn} 
-                         i at 
-                         b #{createdTime}
-                        p 
-                         i started on 
-                         b #{startedOn} 
-                         i at 
-                         b #{startedTime}
-                        p 
-                         i finished on 
-                         b #{finishedOn} 
-                         i at 
-                         b #{finishedTime}
-        div(class="columns" style="padding: 10px")
-            div(class="column")
-                div(class="card" style="padding: 10px")
-                    h2 
-                        b Volumes
-            div(class="column")
-                div(class="card" style="padding: 10px")
-                    h2 
-                        b Ports
-        div(style="padding: 10px")
+                                else
+                                    i(class="has-text-danger") #{container.State.Status}
+                        p(class="subtitle is-6") #{container.Path}
+                div(class="content")
+                    p 
+                        i created on 
+                        b #{createdOn} 
+                        i at 
+                        b #{createdTime}
+                    p 
+                        i started on 
+                        b #{startedOn} 
+                        i at 
+                        b #{startedTime}
+                    p 
+                        i finished on 
+                        b #{finishedOn} 
+                        i at 
+                        b #{finishedTime}
+    div(class="columns" style="padding: 10px")
+        div(class="column")
             div(class="card" style="padding: 10px")
-                h2
-                    b Logs
-                div(class="has-background-grey-darker" style="padding: 10px; margin-top: 5px")
-                    p(class="has-text-light") test
+                h2 
+                    b Volumes
+                div
+                    p #{container.Mounts.Source}:#{container.Mounts.Destination}
+
+        div(class="column")
+            div(class="card" style="padding: 10px")
+                h2 
+                    b Ports
+                div
+                    each val in ports
+                        span= val
+                    
+
+    div(style="padding: 10px")
+        div(class="card" style="padding: 5px")
+            h2
+                b Logs
+            div(class="has-background-grey" style="padding: 5px; margin-top: 2px")
+                p(class="has-text-light" id="logs")
+        
                             
-                

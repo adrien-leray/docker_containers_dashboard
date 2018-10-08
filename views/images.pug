@@ -1,0 +1,22 @@
+extends header.pug
+
+block content
+    nav(class="levels" style="margin-top: 10px; margin-bottom: 10px")
+        div(class="level-item has-text-centered")
+            div
+                p(class="heading") Total Images size
+                p(class="title") #{totalSize} Gb
+
+    table(class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="margin-bottom: 30px")
+        thead
+            tr
+                th(class="has-text-info") Images
+        tbody
+            each image, i in images
+                tr
+                    td  
+                        small 
+                            b #{image.RepoTags[0]} 
+                            small #{(parseInt(image.Size) * (9.537 * Math.pow(10,-7))).toFixed(2)} Mb
+
+

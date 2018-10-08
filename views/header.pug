@@ -1,0 +1,21 @@
+html
+    head
+        title DCD - Docker Containers Dashboard
+        link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css")
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro")
+    body(style="padding-top: 52px; background-color: #eee; font-family: 'Source Sans Pro', sans-serif")
+        nav(class="navbar is-dark is-fixed-top")
+            div(class="navbar-brand")
+                a(class="navbar-item" href="https://docker.com")
+                    img(src="https://dev.pierre-galvez.fr/wp-content/uploads/2015/01/docker-1170x780.png" alt="Docker logo" style="transition: all .2s ease-in-out; transform: scale(1.8)")
+            div(class="navbar-menu")
+                div(class="navbar-start")
+                    a(class="navbar-item" href="/containers") containers
+                    a(class="navbar-item" href="/images") images
+        div(class="container" style="padding-top:20px")
+            block content
+        script(src='/socket.io/socket.io.js')
+        script(src="https://code.jquery.com/jquery-1.11.1.js")
+        script
+            include includes/logs.js
