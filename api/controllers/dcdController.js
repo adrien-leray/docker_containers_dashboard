@@ -14,8 +14,12 @@ let docker = new Docker();
  * @param {*} res
  */
 exports.list_all_containers = function(req, res) {
+  let status = ""
+  if (req.query.status) {
+    status = req.query.status;
+  }
   docker.listContainers({ all: true }).then(containers => {
-    res.render("containers", { containers: containers });
+    res.render("containers", { containers: containers, status: status });
   });
 };
 
@@ -81,9 +85,14 @@ exports.add_container = (req, res) => {
 
   console.log("params", req.body);
 
-  docker.createContainer(options).then(container => {
-    console.log("new container created !", container);
-  });
+  docker.createContainer(options)
+    .then(container => {
+      console.log("new container created !", container);
+      res.redirect('/containers?status=success');
+    })
+    .catch(error => {
+      res.redirect('/containers?status=error',);
+    });
 };
 
 exports.container_form = function(req, res) {

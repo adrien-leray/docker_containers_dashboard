@@ -2,6 +2,15 @@ extends header.pug
 
 block content
     div(style="padding: 10px 0 10px 0px")
+        if status === "error"
+            div(class="notification is-danger")
+                button(class="delete")
+                span Error, container not created !
+        if status === "success"
+            div(class="notification is-success")
+                button(class="delete")
+                span container successfully created !
+    div(style="padding: 10px 0 10px 0px")
         a(class="button is-primary is-small" href="/containers/new") 
             i(class="fas fa-plus fa-sm" style="padding-right: 10px")
             span container

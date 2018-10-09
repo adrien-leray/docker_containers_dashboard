@@ -12,7 +12,7 @@ block content
         div(class="field")
             label(class="label") Name
             div(class="control")
-                input(class="input" name="Name" value="")
+                input(class="input" name="name" value="")
         div(class="field")
             label(class="label") RAM
             div(class="control")
@@ -22,15 +22,17 @@ block content
             div(class="control") 
                 input(class="input" name="CPU" value="")
         div(class="field")
-            label(class="label") Partage de volume
+            label(class="label") Volumes
             div(class="control")
                 input(class="input" name="Volume" value="")
         div(class="field")
-            label(class="label") Port
+            label(class="label") Ports 
+            small list all here separate with semicolon ";" example: containerPort:hostPort "22/tcp:11022;80/tcp:80"
             div(class="control")
-                input(class="input" name="Port" value="")
+                input(class="input" name="PortBindings" value="")
         div(class="field")
-            label(class="label") Variables d'environnement
+            label(class="label") Environment variables
+            small list all here separate with semicolon ";" example: "FOO=bar;BAZ=quux"
             div(class="control")
                 input(class="input" name="Env" value="")
         div(class="control")
