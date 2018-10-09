@@ -76,11 +76,13 @@ exports.list_container_by_id = function(req, res) {
   }
 };
 
-exports.add_container = function(req, res) {
+exports.add_container = (req, res) => {
   let options = req.body;
 
+  console.log(req.body);
+
   docker.createContainer(options).then(container => {
-    return container.start();
+    console.log("new container created !", container);
   });
 };
 
