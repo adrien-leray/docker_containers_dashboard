@@ -18,5 +18,5 @@ http.listen(3000, () =>
 );
 
 io.on("connection", socket => {
-  console.log("Hello bro !");
+  // console.log("Hello bro !");
 });

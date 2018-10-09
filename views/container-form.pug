@@ -1,38 +1,38 @@
 extends header.pug
 
 block content
-    h1(class="has-text-centered")
+    h1(class="has-text-centered is-size-4")
         b NEW CONTAINER
     hr
     form(action="/containers/new" method="post")
         div(class="field")
             label(class="label") Image
             div(class="control")
-                input(class="input")
+                input(class="input" name="Image" value="")
         div(class="field")
             label(class="label") Name
             div(class="control")
-                input(class="input")
+                input(class="input" name="Name" value="")
         div(class="field")
             label(class="label") RAM
             div(class="control")
-                input(class="input")
+                input(class="input" name="RAM" value="")
         div(class="field")
             label(class="label") CPU
             div(class="control") 
-                input(class="input")
+                input(class="input" name="CPU" value="")
         div(class="field")
             label(class="label") Partage de volume
             div(class="control")
-                input(class="input")
+                input(class="input" name="Volume" value="")
         div(class="field")
             label(class="label") Port
             div(class="control")
-                input(class="input")
+                input(class="input" name="Port" value="")
         div(class="field")
             label(class="label") Variables d'environnement
             div(class="control")
-                input(class="input")
+                input(class="input" name="Env" value="")
         div(class="control")
-            button(class="button is-primary" type="submit") Submit
+            input(class="button is-primary" type="submit" value="Submit")
         

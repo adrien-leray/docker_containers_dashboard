@@ -1,7 +1,9 @@
 extends header.pug
 
 block content
-    div(style="padding: 10px")
+    a(class="button is-info is-small" href="/containers")
+        i(class="fas fa-arrow-left")
+    div(style="padding: 10px 0 0 0")
         div(class="card")
             div(class="card-content")
                 div(class="media")
@@ -34,7 +36,7 @@ block content
                         b #{finishedOn} 
                         i at 
                         b #{finishedTime}
-    div(class="columns" style="padding: 10px")
+    div(class="columns" style="padding: 10px 0 0 0")
         div(class="column")
             div(class="card" style="padding: 10px")
                 h2 
@@ -51,7 +53,7 @@ block content
                         span= val
                     
 
-    div(style="padding: 10px")
+    div(style="padding: 10px 0 0 0")
         div(class="card" style="padding: 5px")
             h2
                 b Logs

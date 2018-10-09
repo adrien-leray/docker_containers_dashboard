@@ -5,6 +5,12 @@ module.exports = function(app) {
 
   // Applicative routes
   app
+    .route("/")
+    .get((req, res) => {
+      res.redirect('/containers');
+    });
+
+  app
     .route("/containers")
     .get(dcd.list_all_containers)
     .post(dcd.create_container_json);
