@@ -76,16 +76,14 @@ exports.list_container_by_id = function(req, res) {
   }
 };
 
-exports.add_container = function(req, res) {
+exports.add_container = (req, res) => {
   let options = req.body;
 
-  console.log(options);
+  console.log("params", req.body);
 
-  res.json(options);
-
-  // docker.createContainer(options).then(container => {
-  //   return container.start();
-  // });
+  docker.createContainer(options).then(container => {
+    console.log("new container created !", container);
+  });
 };
 
 exports.container_form = function(req, res) {
