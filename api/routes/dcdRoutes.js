@@ -20,11 +20,12 @@ module.exports = function(app) {
     .post(dcd.add_container);
 
   app.route("/containers/:id").get(dcd.list_container_by_id);
+  app.route("/containers/:id/stop").post(dcd.stop_container_by_id);
+  app.route("/containers/:id/remove").post(dcd.remove_container_by_id);
   app.route("/images").get(dcd.list_all_images);
 
   // REST API
   app.route("/api/images").get(dcd.list_all_images_json);
   app.route("/api/containers").get(dcd.list_all_containers_json);
   app.route("/api/containers/:id").get(dcd.list_container_by_id_json);
-  app.route("/api/containers/:id/logs").get(dcd.get_container_logs);
 };

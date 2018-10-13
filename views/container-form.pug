@@ -1,40 +1,68 @@
 extends header.pug
 
 block content
-    h1(class="has-text-centered is-size-4")
-        b NEW CONTAINER
-    hr
-    form(action="/containers/new" method="post")
-        div(class="field")
-            label(class="label") Image
-            div(class="control")
-                input(class="input" name="Image" value="")
-        div(class="field")
-            label(class="label") Name
-            div(class="control")
-                input(class="input" name="name" value="")
-        div(class="field")
-            label(class="label") RAM
-            div(class="control")
-                input(class="input" name="RAM" value="")
-        div(class="field")
-            label(class="label") CPU
-            div(class="control") 
-                input(class="input" name="CPU" value="")
-        div(class="field")
-            label(class="label") Volumes
-            div(class="control")
-                input(class="input" name="Volume" value="")
-        div(class="field")
-            label(class="label") Ports 
-            small list all here separate with semicolon ";" example: containerPort:hostPort "22/tcp:11022;80/tcp:80"
-            div(class="control")
-                input(class="input" name="PortBindings" value="")
-        div(class="field")
-            label(class="label") Environment variables
-            small list all here separate with semicolon ";" example: "FOO=bar;BAZ=quux"
-            div(class="control")
-                input(class="input" name="Env" value="")
-        div(class="control")
-            input(class="button is-primary" type="submit" value="Submit")
+    div(class="card")
+        header(class="card-header")
+            p(class="card-header-title") 
+                b NEW CONTAINER
+        div(class="card-content")
+            div(class="content")
+                form(action="/containers/new" method="post")
+                    div(class="field")
+                        label(class="label") Image
+                        div(class="control")
+                            input(class="input" name="Image" value="")
+                    div(class="field")
+                        label(class="label") Name
+                        div(class="control")
+                            input(class="input" name="name" value="")
+                    div(class="field")
+                        label(class="label") RAM limit (Mb) 
+                            small need to be > 4Mb
+                        div(class="control")
+                            input(class="input" name="Memory" type="number" value="")
+                    div(class="field")
+                        label(class="label") CPU Period (ms) 
+                            small default is 300ms
+                        div(class="control") 
+                            input(class="input" name="CpuPeriod" type="number" value="")
+                    div(class="field")
+                        label(class="label") CPU Quota (ms)
+                        div(class="control") 
+                            input(class="input" name="CpuQuota" type="number" value="")
+                    div(class="field")
+                        label(class="label") Volumes
+                        small list all here separate with semicolon ";" (docker_folder:local_folder)
+                        br
+                        small
+                            u example:
+                        small 
+                            i "/etc:/etc;/etc/share_folder:/c//documents/etc"
+                        div(class="control")
+                            input(class="input" name="Volume" value="")
+                    div(class="field")
+                        label(class="label") Ports 
+                        small list all here separate with semicolon ";"
+                        br
+                        small
+                            u example:
+                        small 
+                            i "22:11022;80:8088"
+                        div(class="control")
+                            input(class="input" name="PortBindings" value="")
+                    div(class="field")
+                        label(class="label") Environment variables
+                        small list all here separate with semicolon ";" (container:host)
+                        br
+                        small 
+                            u example:
+                        small 
+                            i "FOO=bar;BAZ=quux"
+                        div(class="control")
+                            input(class="input" name="Env" value="")
+                    div(class="field")
+                        a(href="/containers" class="button is-danger" style="margin-right: 10px") Cancel
+                        input(class="button is-primary" type="submit" value="Submit")
+            
+            
         

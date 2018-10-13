@@ -10,7 +10,6 @@ app.use(
 app.use(bodyParser.json());
 
 const http = require("http").Server(app);
-const io = require("socket.io")(http);
 
 const dcd = require("./api/controllers/dcdController");
 
@@ -23,7 +22,3 @@ app.set("views", "./views");
 http.listen(3000, () =>
   console.log("✨  Server started at http://localhost:3000")
 );
-
-io.on("connection", socket => {
-  // console.log("Hello bro !");
-});

@@ -4,35 +4,60 @@ block content
     div(style="padding: 10px 0 10px 0px")
         if status === "error"
             div(class="notification is-danger")
-                button(class="delete")
                 span Error, container not created !
         if status === "success"
             div(class="notification is-success")
-                button(class="delete")
                 span container successfully created !
+        if status === "noImage"
+            div(class="notification is-danger")
+                span Error, you need to specify an Image to create a container !
+        if status === "stop"
+            div(class="notification is-success")
+                span Container stopped !
+        if status === "remove"
+            div(class="notification is-success")
+                span Container removed !
+        if status === "noRun"
+            div(class="notification is-info")
+                span Container created but failed to run !
     div(style="padding: 10px 0 10px 0px")
-        a(class="button is-primary is-small" href="/containers/new") 
+        a(class="button is-primary" href="/containers/new") 
             i(class="fas fa-plus fa-sm" style="padding-right: 10px")
             span container
 
-    table(class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth" style="margin-bottom: 30px")
+    table(class="table is-bordered is-striped is-hoverable is-fullwidth" style="margin-bottom: 30px")
         thead
             tr
                 th(class="has-text-info") Containers
         tbody
             each c, i in containers
                 tr
-                    td  
-                        if c.State === "running"
-                            a(href="/containers/"+c.Id)
-                                i(class="fas fa-circle fa-sm has-text-success" style="margin-right: 10px")
-                                small
-                                    b #{c.Id} 
-                                small #{c.Image}
-                        else
-                            a(href="/containers/"+c.Id)
-                                i(class="fas fa-power-off fa-sm has-text-danger" style="margin-right: 10px") 
-                                small
-                                    b #{c.Id} 
-                                small #{c.Image}
+                    td(style="display:flex; justify-content:space-between")
+                        div
+                            if c.State === "running"
+                                a(class="has-text-dark" href="/containers/"+c.Id)
+                                    i(class="fas fa-circle fa-sm has-text-success" style="margin-right: 10px")
+                                    b(class="has-text-info") #{c.Names[0].substr(1)} 
+                                    small(style="padding-right: 5px")
+                                        i #{c.Image} 
+                                    small
+                                        b #{c.Id} 
+                                    
+                            else
+                                a(class="has-text-dark" href="/containers/"+c.Id)
+                                    i(class="fas fa-power-off fa-sm has-text-danger" style="margin-right: 10px")
+                                    b(class="has-text-info") #{c.Names[0].substr(1)} 
+                                    small(style="padding-right: 5px")
+                                        i #{c.Image} 
+                                    small
+                                        b #{c.Id} 
+                        div(style="display:flex")
+                            form(action="/containers/"+ c.Id + "/stop"  method="post" style="margin:0 10px 0 0")
+                                button(class="button is-small is-warning is-outlined" type="submit" value="stop")
+                                    i(class="fas fa-stop" style="color:rgb(74, 74, 74)")
+                            form(action="/containers/"+ c.Id + "/remove" method="post" style="margin:0 10px 0 0")
+                                button(class="button is-small is-danger is-outlined" type="submit" value="remove")
+                                    i(class="fas fa-trash-alt")
+
+                                
 

@@ -1,8 +1,17 @@
 extends header.pug
 
 block content
-    a(class="button is-info is-small" href="/containers")
-        i(class="fas fa-arrow-left")
+    div(style="display: flex")
+        a(class="button is-info" href="/containers" style="margin:0 10px 0 0")
+            i(class="fas fa-arrow-left")
+        form(action="/containers/"+ id + "/stop"  method="post" style="margin:0 10px 0 0")
+            button(class="button is-warning" type="submit" value="stop")
+                i(class="fas fa-stop" style="margin:0 5px 0 0")
+                span stop
+        form(action="/containers/"+ id + "/remove" method="post" style="margin:0 10px 0 0")
+            button(class="button is-danger" type="submit" value="remove")
+                i(class="fas fa-trash-alt" style="margin:0 5px 0 0")
+                span remove
     div(style="padding: 10px 0 0 0")
         div(class="card")
             div(class="card-content")
@@ -13,7 +22,7 @@ block content
                         else
                             i(class="fas fa-power-off fa-4x has-text-danger")
                     div(class="media-content")
-                        p(class="title is-4") #{container.Name} 
+                        p(class="title is-4") #{container.Name.substr(1)} 
                             small(class="is-size-6")
                                 if (container.State.Status === "running")
                                     i(class="has-text-success") #{container.State.Status}
@@ -21,43 +30,63 @@ block content
                                     i(class="has-text-danger") #{container.State.Status}
                         p(class="subtitle is-6") #{container.Path}
                 div(class="content")
-                    p 
-                        i created on 
-                        b #{createdOn} 
-                        i at 
-                        b #{createdTime}
-                    p 
-                        i started on 
-                        b #{startedOn} 
-                        i at 
-                        b #{startedTime}
-                    p 
-                        i finished on 
-                        b #{finishedOn} 
-                        i at 
-                        b #{finishedTime}
-    div(class="columns" style="padding: 10px 0 0 0")
-        div(class="column")
-            div(class="card" style="padding: 10px")
-                h2 
-                    b Volumes
-                div
-                    p #{container.Mounts.Source}:#{container.Mounts.Destination}
-
-        div(class="column")
-            div(class="card" style="padding: 10px")
-                h2 
-                    b Ports
-                div
-                    each val in ports
-                        span= val
-                    
-
+                    div(class="columns")
+                        div(class="column")
+                            p 
+                                i created on 
+                                b #{createdOn} 
+                                i at 
+                                b #{createdTime}
+                            p 
+                                i started on 
+                                b #{startedOn} 
+                                i at 
+                                b #{startedTime}
+                            if (container.State.Status !== "running")
+                                p 
+                                    i finished on 
+                                    b #{finishedOn} 
+                                    i at 
+                                    b #{finishedTime}
+                        div(class="column")
+                            p 
+                                b(style="padding-right: 5px") Memory Limit 
+                                span #{parseInt(container.HostConfig.Memory) / Math.pow(10, 6)} Mb
+                            p 
+                                b(style="padding-right: 5px") CPU Period (ms)
+                                span #{parseInt(container.HostConfig.CpuPeriod) / Math.pow(10, 3)} microseconds
+                            p 
+                                b(style="padding-right: 5px") CPU Quota (ms)
+                                span #{parseInt(container.HostConfig.CpuQuota) / Math.pow(10, 3)} microseconds
     div(style="padding: 10px 0 0 0")
-        div(class="card" style="padding: 5px")
-            h2
-                b Logs
-            div(class="has-background-grey" style="padding: 5px; margin-top: 2px")
-                p(class="has-text-light" id="logs")
+        div(class="columns")
+            div(class="column")
+                div(class="card" style="padding: 10px")
+                    h2 
+                        b(class="has-text-weight-bold") Docker Volume - Host Volume
+                    div
+                        each path in container.HostConfig.Binds
+                            p= path
+
+            div(class="column")
+                div(class="card" style="padding: 10px")
+                    h2 
+                        b Container port - Host Port
+                    div
+                        each val in ports
+                            p= val
+    div(style="padding: 10px 0 0 0")
+        div(class="card" style="padding: 10px")
+            h2 
+                b(class="has-text-weight-bold") Environment variables
+            div
+                each variable in container.Config.Env
+                    p= variable
+    div(style="padding: 10px 0 0 0")
+        div(class="panel")
+            p(class="panel-heading has-text-weight-bold") Logs
+            div(class="panel-block has-background-dark")
+                p(class="has-text-light" id="logs") #{logs}
+
         
                             
