@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Welcome to docker containers dashboard\"",
-    "start": "nodemon server.js"
+    "start": "node server.js"
   },
   "keywords": [
     "REST",
